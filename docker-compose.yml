@@ -12,7 +12,7 @@ services:
     restart: always
 
   target-db:
-    image: postgres:16
+    image: postgres:18
     container_name: postgres_container
     environment:
       POSTGRES_USER: postgres
