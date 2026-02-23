@@ -1,4 +1,4 @@
-import sys
+import sys, logging
 
 from util import get_tables, load_db_details
 from read import read_table
@@ -9,12 +9,19 @@ def main():
     """program takes at least one argument"""
     env = sys.argv[1]
     a_tables = sys.argv[2]
+    logging.basicConfig(
+        filename='PythonProject12.log',  # Standard convention uses .log or .info
+        level=logging.INFO,
+        format='%(asctime)s [%(message)s]',
+        datefmt='%m/%d/%Y %I:%M:%S %p'  # Use datefmt to define the string representation
+    )
+    logging.basicConfig(filename='PythonProject12.err', level=logging.ERROR)
     db_details = load_db_details(env)
     tables = get_tables('table_list', a_tables)
     for table_name in tables['table_name']:
-        print(f'reading data for {table_name}')
+        logging.info(f'reading data for {table_name}')
         data, column_names = read_table(db_details, table_name)
-        print(f'loading data for {table_name}')
+        logging.error(f'loading data for {table_name}')
         load_table(db_details, data, column_names, table_name)
 
 
